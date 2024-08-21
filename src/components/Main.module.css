@@ -1,0 +1,10 @@
+.main {
+    /* display: flex; */
+    padding: 100px;
+    background-image: url('../images/background.jpg');
+    background-repeat: repeat-y;
+    background-size: cover; 
+    background-position: center top;
+    /* height: 100%; */
+    /* width: 100%;  */
+}

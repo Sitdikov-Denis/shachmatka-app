@@ -4,16 +4,30 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+// Добавляем функцию mount в глобальный объект window
+declare global {
+  interface Window {
+    mount: (id: string) => void;
+  }
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+window.mount = function(id: string) {
+  const rootElement = document.getElementById(id);
+
+  if (rootElement) {
+    const root = ReactDOM.createRoot(rootElement);
+    root.render(
+      <React.StrictMode>
+        <App />  {/* Рендерим App без пропсов */}
+      </React.StrictMode>
+    );
+  }
+};
+
+// Опционально: автозапуск на элемент с id 'root', если он присутствует на странице
+if (document.getElementById('root')) {
+  window.mount('root');
+}
+
+// Для измерения производительности
 reportWebVitals();
